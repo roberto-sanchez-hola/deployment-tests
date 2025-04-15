@@ -71,12 +71,20 @@ jobs:
           cat crm/config.php || echo "❌ No encontrado"
           cat $GITHUB_WORKSPACE/secrets.env
 
+      - name: 📂 Verifica contenido antes de subir
+        run: |
+          echo "Contenido de secrets.env:"
+          cat $GITHUB_WORKSPACE/secrets.env || echo "❌ secrets.env no existe"
+
+          echo "Archivos disponibles:"
+          ls -l
+
       - name: 📤 Subir secrets.env como artefacto
         uses: actions/upload-artifact@v3
         with:
           name: deploy-outputs
           path: |
-            secrets.env
-            config.php
-            admin/config.php
-            crm/config.php
+            $GITHUB_WORKSPACE/secrets.env
+            $GITHUB_WORKSPACE/config.php
+            $GITHUB_WORKSPACE/admin/config.php
+            $GITHUB_WORKSPACE/crm/config.php
