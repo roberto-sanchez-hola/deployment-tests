@@ -9,6 +9,8 @@ on:
 jobs:
   deploy-local:
     runs-on: ubuntu-latest
+    environment: dev
+
     steps:
       - name: 📥 Checkout del código
         uses: actions/checkout@v4
@@ -17,11 +19,10 @@ jobs:
         run: |
           echo "" > "$GITHUB_WORKSPACE/secrets.env"
           printenv | grep sort >> "$GITHUB_WORKSPACE/secrets.env" || true
-          
           echo "DEV_ROOT_APIKEY_EV=${{ secrets.DEV_ROOT_APIKEY_EV }}" >> "$GITHUB_WORKSPACE/secrets.env"
+          echo "DEV_ROOT_TEST_VARIABLE_ENV=${{ vars.DEV_ROOT_TEST_VARIABLE_ENV }}" >> "$GITHUB_WORKSPACE/secrets.env"
+          echo "DEV_ROOT_TEST_VARIABLE_REPO=${{ vars.DEV_ROOT_TEST_VARIABLE_REPO }}" >> "$GITHUB_WORKSPACE/secrets.env"
           
-          echo "DEV_ROOT_APIKEY_EV=${{ secrets.DEV_ROOT_APIKEY_EV }}" >> "$GITHUB_WORKSPACE/secrets.env"
-
 
       - name: 🛠️ Generate config.php files
         run: |
