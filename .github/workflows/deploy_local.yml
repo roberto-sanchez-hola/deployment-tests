@@ -25,7 +25,6 @@ jobs:
           echo "<?php" > admin/config.php
           echo "<?php" > crm/config.php
           
-          
           echo "define('DB_PREFIX', '');" >> config.php
           echo "define('DB_PREFIX', '');" >> admin/config.php
           echo "define('DB_PREFIX', '');" >> crm/config.php
