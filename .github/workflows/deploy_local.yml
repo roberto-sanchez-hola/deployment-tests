@@ -83,8 +83,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: deploy-outputs
-          path: |
-            $GITHUB_WORKSPACE/secrets.env
-            $GITHUB_WORKSPACE/config.php
-            $GITHUB_WORKSPACE/admin/config.php
-            $GITHUB_WORKSPACE/crm/config.php
+          path: .
