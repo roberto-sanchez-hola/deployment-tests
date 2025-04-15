@@ -16,38 +16,7 @@ jobs:
       - name: 🔐 Export VARS and SECRETS in a temp .env file
         run: |
           echo "" > "$GITHUB_WORKSPACE/secrets.env"
-          printenv | grep '^DEV_' >> "$GITHUB_WORKSPACE/secrets.env" || true
-
-          echo "DEV_ROOT_APIKEY_EV"=${{secrets.DEV_ROOT_APIKEY_EV}}" >> "$GITHUB_WORKSPACE/secrets.env"
-          echo "DEV_ROOT_APIKEY_LR"=${{secrets.DEV_ROOT_APIKEY_LR}}" >> "$GITHUB_WORKSPACE/secrets.env"
-          echo "DEV_ROOT_APISECR_LR"=${{secrets.DEV_ROOT_APISECR_LR}}" >> "$GITHUB_WORKSPACE/secrets.env"
-          echo "DEV_ROOT_BUNDLEID"=${{secrets.DEV_ROOT_BUNDLEID}}" >> "$GITHUB_WORKSPACE/secrets.env"
-          echo "DEV_ROOT_BUNDLEIDFA"=${{secrets.DEV_ROOT_BUNDLEIDFA}}" >> "$GITHUB_WORKSPACE/secrets.env"
-          echo "DEV_ROOT_DB_DATABASE"=${{secrets.DEV_ROOT_DB_DATABASE}}" >> "$GITHUB_WORKSPACE/secrets.env"
-          echo "DEV_ROOT_DB_HOSTNAME"=${{secrets.DEV_ROOT_DB_HOSTNAME}}" >> "$GITHUB_WORKSPACE/secrets.env"
-          echo "DEV_ROOT_DB_PASSWORD"=${{secrets.DEV_ROOT_DB_PASSWORD}}" >> "$GITHUB_WORKSPACE/secrets.env"
-          echo "DEV_ROOT_DB_USERNAME"=${{secrets.DEV_ROOT_DB_USERNAME}}" >> "$GITHUB_WORKSPACE/secrets.env"
-          echo "DEV_ROOT_HOST_EV"=${{secrets.DEV_ROOT_HOST_EV}}" >> "$GITHUB_WORKSPACE/secrets.env"
-          echo "DEV_ROOT_IDAQ"=${{secrets.DEV_ROOT_IDAQ}}" >> "$GITHUB_WORKSPACE/secrets.env"
-          echo "DEV_ROOT_IDAQID"=${{secrets.DEV_ROOT_IDAQID}}" >> "$GITHUB_WORKSPACE/secrets.env"
-          echo "DEV_ROOT_JOB_OWNER"=${{secrets.DEV_ROOT_JOB_OWNER}}" >> "$GITHUB_WORKSPACE/secrets.env"
-          echo "DEV_ADMIN_BDC_PASSWORD"=${{secrets.DEV_ADMIN_BDC_PASSWORD}}" >> "$GITHUB_WORKSPACE/secrets.env"
-          echo "DEV_ADMIN_DB_DATABASE"=${{secrets.DEV_ADMIN_DB_DATABASE}}" >> "$GITHUB_WORKSPACE/secrets.env"
-          echo "DEV_ADMIN_DB_HOSTNAME"=${{secrets.DEV_ADMIN_DB_HOSTNAME}}" >> "$GITHUB_WORKSPACE/secrets.env"
-          echo "DEV_ADMIN_DB_PASSWORD"=${{secrets.DEV_ADMIN_DB_PASSWORD}}" >> "$GITHUB_WORKSPACE/secrets.env"
-          echo "DEV_ADMIN_DB_USERNAME"=${{secrets.DEV_ADMIN_DB_USERNAME}}" >> "$GITHUB_WORKSPACE/secrets.env"
-          echo "DEV_ADMIN_ECOM_PASSWORD"=${{secrets.DEV_ADMIN_ECOM_PASSWORD}}" >> "$GITHUB_WORKSPACE/secrets.env"
-          echo "DEV_ADMIN_IDAQ"=${{secrets.DEV_ADMIN_IDAQ}}" >> "$GITHUB_WORKSPACE/secrets.env"
-          echo "DEV_ADMIN_IDAQID"=${{secrets.DEV_ADMIN_IDAQID}}" >> "$GITHUB_WORKSPACE/secrets.env"
-          echo "DEV_ADMIN_JOB_OWNER"=${{secrets.DEV_ADMIN_JOB_OWNER}}" >> "$GITHUB_WORKSPACE/secrets.env"
-          echo "DEV_ADMIN_OTRS_PASSWORD"=${{secrets.DEV_ADMIN_OTRS_PASSWORD}}" >> "$GITHUB_WORKSPACE/secrets.env"
-          echo "DEV_ADMIN_OTRS_USERNAME"=${{secrets.DEV_ADMIN_OTRS_USERNAME}}" >> "$GITHUB_WORKSPACE/secrets.env"
-          echo "DEV_ADMIN_BUNDLEID"=${{secrets.DEV_ADMIN_BUNDLEID}}" >> "$GITHUB_WORKSPACE/secrets.env"
-          echo "DEV_ADMIN_BUNDLEIDFA"=${{secrets.DEV_ADMIN_BUNDLEIDFA}}" >> "$GITHUB_WORKSPACE/secrets.env"
-          echo "DEV_CRM_DB_DATABASE"=${{secrets.DEV_CRM_DB_DATABASE}}" >> "$GITHUB_WORKSPACE/secrets.env"
-          echo "DEV_CRM_DB_HOSTNAME"=${{secrets.DEV_CRM_DB_HOSTNAME}}" >> "$GITHUB_WORKSPACE/secrets.env"
-          echo "DEV_CRM_DB_PASSWORD"=${{secrets.DEV_CRM_DB_PASSWORD}}" >> "$GITHUB_WORKSPACE/secrets.env"
-          echo "DEV_CRM_DB_USERNAME"=${{secrets.DEV_CRM_DB_USERNAME}}" >> "$GITHUB_WORKSPACE/secrets.env"
+          printenv | grep sort >> "$GITHUB_WORKSPACE/secrets.env" || true
 
       - name: 🛠️ Generate config.php files
         run: |
