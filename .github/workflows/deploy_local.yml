@@ -11,9 +11,13 @@ jobs:
     runs-on: ubuntu-latest
     environment: dev
     env:
+      DEV_ADMIN_BDC_PASSWORD: ${{ secrets.DEV_ADMIN_BDC_PASSWORD }}
+      DEV_ALL_DB_DATABASE: ${{ secrets.DEV_ALL_DB_DATABASE }}
       DEV_ROOT_APIKEY_EV: ${{ secrets.DEV_ROOT_APIKEY_EV }}
-      DEV_ROOT_TEST_VARIABLE_ENV: ${{ vars.DEV_ROOT_TEST_VARIABLE_ENV }}
-
+      DEV_ADMIN_DIR_APPLICATION: ${{ vars.DEV_ADMIN_DIR_APPLICATION }}
+      DEV_ALL_DB_DRIVER: ${{ vars.DEV_ALL_DB_DRIVER }}
+      DEV_CRM_DIR_APPLICATION: ${{ vars.DEV_CRM_DIR_APPLICATION }}
+      DEV_ALL_DB_PREFIX: ${{ vars.DEV_ALL_DB_PREFIX }}
 
     steps:
       - name: 📥 Checkout del código
@@ -21,7 +25,7 @@ jobs:
       - name: Create temporary .env FILE
         run: |
           echo "" > "$GITHUB_WORKSPACE/secrets.env"
-          printenv | sort >> "$GITHUB_WORKSPACE/secrets.env" || true
+          printenv | grep ^DEV_ >> "$GITHUB_WORKSPACE/secrets.env" || true
 
       - name: 🛠️ Generate config.php files
         run: |
@@ -31,11 +35,7 @@ jobs:
           echo "<?php" > config.php
           echo "<?php" > admin/config.php
           echo "<?php" > crm/config.php
-          
-          echo "define('DB_PREFIX', '');" >> config.php
-          echo "define('DB_PREFIX', '');" >> admin/config.php
-          echo "define('DB_PREFIX', '');" >> crm/config.php
-          
+
           while IFS='=' read -r key value; do
             [[ -z "$key" || "$key" == \#* ]] && continue
             IFS='_' read -r env context name <<< "$key"
@@ -49,6 +49,11 @@ jobs:
                 echo "define('${const}', '${value}');" >> admin/config.php
                 ;;
               CRM)
+                echo "define('${const}', '${value}');" >> crm/config.php
+                ;;
+              ALL)
+                echo "define('${const}', '${value}');" >> config.php
+                echo "define('${const}', '${value}');" >> admin/config.php
                 echo "define('${const}', '${value}');" >> crm/config.php
                 ;;
             esac
