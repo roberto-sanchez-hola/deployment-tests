@@ -17,6 +17,11 @@ jobs:
         run: |
           echo "" > "$GITHUB_WORKSPACE/secrets.env"
           printenv | grep sort >> "$GITHUB_WORKSPACE/secrets.env" || true
+          
+          echo "DEV_ROOT_APIKEY_EV=${{ secrets.DEV_ROOT_APIKEY_EV }}" >> "$GITHUB_WORKSPACE/secrets.env"
+          
+          echo "DEV_ROOT_APIKEY_EV=${{ secrets.DEV_ROOT_APIKEY_EV }}" >> "$GITHUB_WORKSPACE/secrets.env"
+
 
       - name: 🛠️ Generate config.php files
         run: |
