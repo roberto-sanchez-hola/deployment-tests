@@ -10,6 +10,10 @@ jobs:
   deploy-local:
     runs-on: ubuntu-latest
     environment: dev
+    env:
+      DEV_ROOT_APIKEY_EV: ${{ secrets.DEV_ROOT_APIKEY_EV }}
+      DEV_ROOT_TEST_VARIABLE_ENV: ${{ vars.DEV_ROOT_TEST_VARIABLE_ENV }}
+
 
     steps:
       - name: 📥 Checkout del código
@@ -17,21 +21,12 @@ jobs:
       - name: Create temporary .env FILE
         run: |
           echo "" > "$GITHUB_WORKSPACE/secrets.env"
-
-      - name: 🔐 Export SECRETS in the temporary .env
-        env:
-          DEV_ROOT_APIKEY_EV: ${{ secrets.DEV_ROOT_APIKEY_EV }}
-        run: |
-          printenv | sort >> "$GITHUB_WORKSPACE/secrets.env" || true
-
-      - name: 🔐 Export VARS in a the temporary .env file
-        env:
-          DEV_ROOT_TEST_VARIABLE_ENV: ${{ vars.DEV_ROOT_TEST_VARIABLE_ENV }}
-        run: |
           printenv | sort >> "$GITHUB_WORKSPACE/secrets.env" || true
 
       - name: 🛠️ Generate config.php files
         run: |
+         
+          
           mkdir -p admin crm
           echo "<?php" > config.php
           echo "<?php" > admin/config.php
