@@ -14,15 +14,21 @@ jobs:
     steps:
       - name: 📥 Checkout del código
         uses: actions/checkout@v4
-
-      - name: 🔐 Export VARS and SECRETS in a temp .env file
+      - name: Create temporary .env FILE
         run: |
           echo "" > "$GITHUB_WORKSPACE/secrets.env"
-          printenv | grep sort >> "$GITHUB_WORKSPACE/secrets.env" || true
-          echo "DEV_ROOT_APIKEY_EV=${{ secrets.DEV_ROOT_APIKEY_EV }}" >> "$GITHUB_WORKSPACE/secrets.env"
-          echo "DEV_ROOT_TEST_VARIABLE_ENV=${{ vars.DEV_ROOT_TEST_VARIABLE_ENV }}" >> "$GITHUB_WORKSPACE/secrets.env"
-          echo "DEV_ROOT_TEST_VARIABLE_REPO=${{ vars.DEV_ROOT_TEST_VARIABLE_REPO }}" >> "$GITHUB_WORKSPACE/secrets.env"
-          
+
+      - name: 🔐 Export SECRETS in the temporary .env
+        env:
+          DEV_ROOT_APIKEY_EV: ${{ secrets.DEV_ROOT_APIKEY_EV }}
+        run: |
+          printenv | sort >> "$GITHUB_WORKSPACE/secrets.env" || true
+
+      - name: 🔐 Export VARS in a the temporary .env file
+        env:
+          DEV_ROOT_TEST_VARIABLE_ENV: ${{ vars.DEV_ROOT_TEST_VARIABLE_ENV }}
+        run: |
+          printenv | sort >> "$GITHUB_WORKSPACE/secrets.env" || true
 
       - name: 🛠️ Generate config.php files
         run: |
@@ -64,3 +70,13 @@ jobs:
           echo "🧾 crm/config.php (CRM)"
           cat crm/config.php || echo "❌ No encontrado"
           cat $GITHUB_WORKSPACE/secrets.env
+
+      - name: 📤 Subir secrets.env como artefacto
+        uses: actions/upload-artifact@v3
+        with:
+          name: deploy-outputs
+          path: |
+            secrets.env
+            config.php
+            admin/config.php
+            crm/config.php
