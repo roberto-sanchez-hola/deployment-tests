@@ -93,8 +93,6 @@ jobs:
 
       - name: 🛠️ Generate config.php files
         run: |
-         
-          
           mkdir -p admin crm
           echo "<?php" > config.php
           echo "<?php" > admin/config.php
@@ -122,6 +120,10 @@ jobs:
                 ;;
             esac
           done < "$GITHUB_WORKSPACE/secrets.env"
+          
+          echo "?>" >> config.php
+          echo "?>" >> admin/config.php
+          echo "?>" >> crm/config.php
 
       - name: 🧾 Mostrar contenido de los archivos config generados
         run: |
@@ -142,6 +144,9 @@ jobs:
 
           echo "Archivos disponibles:"
           ls -l
+      - name: 🧼 Remove temporary .env file
+        run: |
+          rm $GITHUB_WORKSPACE/secrets.env
 
       - name: 📤 Subir secrets.env como artefacto
         uses: actions/upload-artifact@v4
