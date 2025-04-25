@@ -144,9 +144,10 @@ jobs:
 
           echo "Archivos disponibles:"
           ls -l
-      - name: 🧼 Remove temporary .env file
+      - name: 🧼 Clean development files
         run: |
           rm $GITHUB_WORKSPACE/secrets.env
+          rm -r $GITHUB_WORKSPACE/.git
 
       - name: 📤 Subir secrets.env como artefacto
         uses: actions/upload-artifact@v4
