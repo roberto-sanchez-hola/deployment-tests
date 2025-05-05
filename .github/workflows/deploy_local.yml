@@ -124,6 +124,9 @@ jobs:
           echo "?>" >> config.php
           echo "?>" >> admin/config.php
           echo "?>" >> crm/config.php
+      - name: 🥁 Copy environment .htaccess file
+        run: |
+          cp $GITHUB_WORKSPACE/.htaccess_dev $GITHUB_WORKSPACE/.htaccess
 
       - name: 🧾 Mostrar contenido de los archivos config generados
         run: |
@@ -136,9 +139,9 @@ jobs:
           echo "🧾 crm/config.php (CRM)"
           cat crm/config.php || echo "❌ No encontrado"
           cat $GITHUB_WORKSPACE/secrets.env
-      - name: 🥁 Copy environment .htaccess file
-        run: |
-            cp $GITHUB_WORKSPACE/.htaccess_dev $GITHUB_WORKSPACE/.htaccess
+          cat $GITHUB_WORKSPACE/.htaccess
+
+
 
       - name: 📂 Verifica contenido antes de subir
         run: |
